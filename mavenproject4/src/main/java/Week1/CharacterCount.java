@@ -13,30 +13,13 @@ import java.util.Scanner;
  */
 public class CharacterCount {
     private String str;
-    Scanner sc = new Scanner(System.in);
+    private Scanner sc = new Scanner(System.in);
 
-    public void enterString() {
-        System.out.println("Enter your content: ");
-        String str = sc.nextLine();
-        str = str.trim();  
+    public CharacterCount(String str) {
+        this.str = str;
     }
 
-//    public void countWord1() {
-//        String[] words = str.split("\\s+");
-//        for (int i = 0; i < words.length; i++) {
-//            int count = 0;
-//            String word = words[i];
-//            for (int j = i + 1; j < str.length(); j++) {
-//                if (words[i].equalsIgnoreCase(word)) {
-//                    count = count + 1;
-//                    words[j] = "";
-//                }
-//            }
-//            if (!words.equals("")) {
-//                System.out.print(word + " = " + count + "   ");
-//            }
-//        }
-//    }
+   
 
     public void countWord() {
         String[] text = str.split("\\s+");
@@ -61,7 +44,7 @@ public class CharacterCount {
                     map.put(c, 1);
                 }
             }
-
         }
+        System.out.println(map);
     }
 }

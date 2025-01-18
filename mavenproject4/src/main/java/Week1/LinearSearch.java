@@ -13,39 +13,44 @@ import java.util.Scanner;
  * @author ASUS
  */
 public class LinearSearch {
-    
+
     private int[] array;
-    
-    Scanner scanner = new Scanner(System.in);
-    Random random = new Random();
-    
-    public LinearSearch() {
-        System.out.println("Enter number of array");
-        int length = scanner.nextInt();
-        this.array = new int[length];
+
+    private Scanner scanner = new Scanner(System.in);
+
+    public LinearSearch(int[] array) {
+        this.array = array;
     }
-    
-    public void generateArray(){
-        for(int i=0; i< array.length; i++){
-            this.array[i] = random.nextInt(array.length);
+
+    public void generateArray() {
+        Random random = new Random();
+        for (int i = 0; i < array.length; i++) {
+            this.array[i] = random.nextInt(50);
         }
     }
-    
-    public void displayArray(){
-        for(int i = 0; i < array.length;i++){
+
+    public void displayArray() {
+        for (int i = 0; i < array.length; i++) {
             System.out.print(array[i] + "  ");
         }
     }
-    
-    public void searchNumber(){
-        System.out.println("Enter search value: ");
+
+    public void searchNumber() {
+        System.out.print("Enter search value: ");
+        System.out.println("");
         int number = scanner.nextInt();
         displayArray();
-        for(int i = 0; i<array.length; i++){
-            if(number == array[i]){
+        System.out.println("");
+        boolean found = false;
+        for (int i = 0; i < array.length; i++) {
+            if (number == array[i]) {
                 System.out.println("Found " + number + " at " + i);
+                found = true;
             }
         }
-        
+        if (!found) {
+            System.out.println("Number not found");
+            
+        }
     }
 }

@@ -12,68 +12,58 @@ import java.util.Scanner;
  */
 public class ConvertNumber {
 
-    private int number;
-    Scanner sc = new Scanner(System.in);
+   
+    private Scanner sc = new Scanner(System.in);
 
-    public void convertBinaryToDecimal() {
-        System.out.println("Enter number you want to convert: ");
-        number = sc.nextInt();
+    public int convertBinaryToDecimal(int binaryNumber) {
         int decimalNumber = 0; 
         int base = 1;        
 
-        while (number > 0) {
-            int lastDigit = number % 10; 
+        while (binaryNumber > 0) {
+            int lastDigit = binaryNumber % 10; 
             decimalNumber += lastDigit * base; 
             base *= 2; 
-            number /= 10; 
+            binaryNumber /= 10; 
         }
-        System.out.println(decimalNumber);
+        return decimalNumber;
     }
 
-    public void convertDecimalToBinary() {
+    public int convertDecimalToBinary(int decimalNumber) {
         System.out.println("Enter number you want to convert: ");
-        number = sc.nextInt();
+        decimalNumber = sc.nextInt();
         int binaryNumber = 0;
         int base = 1;
-        while (number > 0) {
-            int lastDigit = number % 2;
+        while (decimalNumber > 0) {
+            int lastDigit = decimalNumber % 2;
             binaryNumber += lastDigit * base;
             base = base * 10;
-            number = number / 2;
+            decimalNumber = decimalNumber / 2;
         }
-        System.out.println(binaryNumber);
+        return binaryNumber;
     }
 
-    public void convertHexaDecimalToDecimal() {
-        System.out.println("Enter number you want to convert: ");
-        String hexaNumber = sc.nextLine().toUpperCase(); 
+    public int convertHexaDecimalToDecimal(String hexaNumber) {     
         int decNumber = 0;
         int base = 1;
 
         for (int i = hexaNumber.length() - 1; i >= 0; i--) {
             int digit;
-
             char ch = hexaNumber.charAt(i);
             if (ch >= '0' && ch <= '9') {
                 digit = ch - '0'; 
             } else if (ch >= 'A' && ch <= 'F') {
-                digit = ch - 'A' + 10; // Ký tự A-F
+                digit = ch - 'A' + 10;
             } else {
                 System.out.println("Invalid character in hexadecimal number: " + ch);
-                return; 
+                break; 
             }
-
             decNumber += digit * base;
             base *= 16;
         }
-
-        System.out.println("Decimal number: " + decNumber);
+        return decNumber;
     }
 
-    public void convertDecimalToHexaDecimal() {
-        System.out.println("Enter number your want to convert: ");
-        int decNumber = sc.nextInt();
-        String hexNumber;
+    public String convertDecimalToHexaDecimal(int decNumber) {
         StringBuilder builder = new StringBuilder();
         while (decNumber > 0) {
             int digit = decNumber % 16;
@@ -84,71 +74,19 @@ public class ConvertNumber {
             }
             decNumber = decNumber / 16;
         }
-        hexNumber = builder.toString();
-        System.out.println(hexNumber);
+        return builder.reverse().toString();
     }
 
-    public void convertBinaryToHexaDecimal() {
-
-        System.out.println("Enter binary number you want to convert: ");
-        int biNumber = sc.nextInt();
-
-        int decimalNumber = 0;
-        int base = 1;
-
-        while (number > 0) {
-            int lastDigit = number % 10;
-            decimalNumber += lastDigit * base;
-            base *= 2;
-            number /= 10;
-        }
-        String hexNumber;
-        StringBuilder builder = new StringBuilder();
-        while (decimalNumber > 0) {
-            int digit = decimalNumber % 16;
-            if (digit >= 0 && digit <= 9) {
-                builder.append((char) ('0' + digit));
-            } else {
-                builder.append((char) ('A' + (digit - 10)));
-            }
-            decimalNumber = decimalNumber / 16;
-        }
-        hexNumber = builder.toString();
-        System.out.println(hexNumber);
-
+    public String convertBinaryToHexaDecimal(int binaryNumber) {
+        int decimalNumber = convertBinaryToDecimal(binaryNumber);
+        return convertDecimalToHexaDecimal(decimalNumber);
     }
     
-    public void convertHexaDecimalToBinary(){
-        System.out.println("Enter hexa number you want to convert: ");
-        String hexaNumber = sc.nextLine().toUpperCase(); 
-        int decimalNumber = 0;
-        int base1 = 1;
-
-        for (int i = hexaNumber.length() - 1; i >= 0; i--) {
-            int digit;
-
-            char ch = hexaNumber.charAt(i);
-            if (ch >= '0' && ch <= '9') {
-                digit = ch - '0'; 
-            } else if (ch >= 'A' && ch <= 'F') {
-                digit = ch - 'A' + 10; // Ký tự A-F
-            } else {
-                System.out.println("Invalid character in hexadecimal number: " + ch);
-                return; 
-            }
-
-            decimalNumber += digit * base1;
-            base1 *= 16;
-        }
-        int binaryNumber = 0;
-        int base2 = 1;
-        while (number > 0) {
-            int lastDigit = number % 2;
-            binaryNumber += lastDigit * base2;
-            base2 = base2 * 10;
-            number = number / 2;
-        }
-        System.out.println(binaryNumber);
-        
+    public int convertHexaDecimalToBinary(String hexaNumber){
+        int decimalNumber = convertHexaDecimalToDecimal(hexaNumber);
+        return convertDecimalToBinary(decimalNumber);       
     }
+    
+    
+       
 }

@@ -111,7 +111,7 @@ public class SolveEquation {
         if (delta < 0) {
             System.out.println("Unsolved equation.");
         } else if (delta == 0) {
-            System.out.println("The equation has infinitely many solutions.");
+            System.out.println("The equation has one solution" + " x1 = x2 = " + -numberB / (2 * numberA) );
         } else {
             double x1 = (-numberB + Math.sqrt(delta)) / (2 * numberA);
             double x2 = (-numberB - Math.sqrt(delta)) / (2 * numberA);
@@ -169,4 +169,6 @@ public class SolveEquation {
         double temp = Math.sqrt(number);
         return temp == (int) temp;
     }
+    
+   
 }
