@@ -30,18 +30,19 @@ public class Matrix {
             }
             System.out.println("+");
             for (int i = 0; i < m.getArr().length; i++) {
-                for (int j = 0; j < m.getArr().length; j++) {
+                for (int j = 0; j < m.getArr()[0].length; j++) {
                     System.out.print("[" + m.getArr()[i][j] + "]");
                 }
                 System.out.println("");
             }
             System.out.println("=");
             for (int i = 0; i < m.getArr().length; i++) {
-                for (int j = 0; j < m.getArr().length; j++) {
+                for (int j = 0; j < m.getArr()[0].length; j++) {
                     System.out.print("[" + (m.getArr()[i][j] + this.arr[i][j]) + "]");
                 }
                 System.out.println("");
             }
+            System.out.println("");
         } else {
             System.out.println("Can not add, row or column not equal.");
         }
@@ -57,18 +58,19 @@ public class Matrix {
             }
             System.out.println("-");
             for (int i = 0; i < m.getArr().length; i++) {
-                for (int j = 0; j < m.getArr().length; j++) {
+                for (int j = 0; j < m.getArr()[0].length; j++) {
                     System.out.print("[" + m.getArr()[i][j] + "]");
                 }
                 System.out.println("");
             }
             System.out.println("=");
             for (int i = 0; i < m.getArr().length; i++) {
-                for (int j = 0; j < m.getArr().length; j++) {
+                for (int j = 0; j < m.getArr()[0].length; j++) {
                     System.out.print("[" + (m.getArr()[i][j] - this.arr[i][j]) + "]");
                 }
                 System.out.println("");
             }
+            System.out.println("");
         } else {
             System.out.println("Can not sub, row or column not equal.");
         }
@@ -85,7 +87,7 @@ public class Matrix {
             }
             System.out.println("*");
             for (int i = 0; i < m.getArr().length; i++) {
-                for (int j = 0; j < m.getArr().length; j++) {
+                for (int j = 0; j < m.getArr()[0].length; j++) {
                     System.out.print("[" + m.getArr()[i][j] + "]");
                 }
                 System.out.println("");
@@ -93,7 +95,7 @@ public class Matrix {
             System.out.println("=");
             int[][] result = new int[this.arr.length][m.getArr()[0].length];
             for (int i = 0; i < this.arr.length; i++) {
-                for (int j = 0; j < m.getArr().length; j++) {
+                for (int j = 0; j < m.getArr()[0].length; j++) {
                     for (int k = 0; k < this.arr[0].length; k++) {
                         result[i][j] += arr[i][k] * m.getArr()[k][j];
                     }
@@ -106,6 +108,7 @@ public class Matrix {
                 }
                 System.out.println("");
             }
+            System.out.println("");
         }else{
             System.out.println("Can not multiply.");
         }

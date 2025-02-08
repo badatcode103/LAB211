@@ -29,8 +29,6 @@ public class ConvertNumber {
     }
 
     public int convertDecimalToBinary(int decimalNumber) {
-        System.out.println("Enter number you want to convert: ");
-        decimalNumber = sc.nextInt();
         int binaryNumber = 0;
         int base = 1;
         while (decimalNumber > 0) {

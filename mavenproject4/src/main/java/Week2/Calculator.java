@@ -14,6 +14,10 @@ import java.util.Scanner;
 public class Calculator {
 
     private Scanner sc = new Scanner(System.in);
+    
+    public Calculator(Scanner sc){
+        this.sc = sc;
+    }
 
     public int menu() {
         System.out.println("======= Calculator Progaram =======");
