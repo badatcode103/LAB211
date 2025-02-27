@@ -26,54 +26,63 @@ public class BubbleSort {
         this.arr = arr;
     }
 
-    public void generateArray(int length) {
+    public void generateArray() {
         Random random = new Random();
-        int[] array = new int[length];
-        for (int i = 0; i < length; i++) {
-            array[i] = random.nextInt(length);
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = random.nextInt(arr.length);
         }
-        this.arr = array;
-    }
-
-    public void bubbleSort(BubbleSort b) {
-        int[] arr = b.getArr();
-        while (true) {
-            int count = 0;
-            for (int i = 0; i < arr.length - 1; i++) {
-                if (arr[i] <= arr[i + 1]) {
-                    count++;
-                } else {
-                    int temp;
-                    temp = arr[i];
-                    arr[i] = arr[i + 1];
-                    arr[i + 1] = temp;
-                }
-            }
-            if (count == (arr.length - 1)) {
-                break;
-            }
-        }
-        b.setArr(arr);
-        System.out.println("");
     }
 
     public void bubbleSort2(BubbleSort b) {
-        int[] arr = b.getArr();
-        int count = 0;
-        boolean check = false;
-        int l = arr.length;
+        int[] arr = b.getArr(); 
+        boolean check;
+        
         for (int i = 0; i < arr.length; i++) {
-            check = true;   
-            for(int j = 0; j < l -1 && check!=true; j++ ){
-                if(arr[j] > arr[j+1]){
-                    int temp = arr[j];
-                    arr[j] = arr[j+1];
-                    arr[j+1] = temp;
+            check = false;
+            for (int j = 0; j < arr.length - i; j++) {
+                if(j+1 == arr.length){
+                    break;
                 }
-            l--;
-            count++;
+                if (arr[j] > arr[j + 1]) {
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                    check = true;
+                }
+            }
+            if (!check) {
+                break;
             }
         }
     }
 
+    public void printArray() {
+        for (int num : arr) {
+            System.out.print(num + " ");
+        }
+        System.out.println();
+    }
+
 }
+
+//    public void bubbleSort() {
+//        
+//        while (true) {
+//            int count = 0;
+//            for (int i = 0; i < arr.length - 1; i++) {
+//                if (arr[i] <= arr[i + 1]) {
+//                    count++;
+//                } else {
+//                    int temp;
+//                    temp = arr[i];
+//                    arr[i] = arr[i + 1];
+//                    arr[i + 1] = temp;
+//                }
+//            }
+//            if (count == (arr.length - 1)) {
+//                break;
+//            }
+//        }
+//        
+//        System.out.println("");
+//    }

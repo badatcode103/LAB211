@@ -11,7 +11,8 @@ import java.util.Random;
  * @author ASUS
  */
 public class BinarySearch {
-     private int arr[];
+
+    private int arr[];
 
     public BinarySearch(int length) {
         this.arr = new int[length];
@@ -25,11 +26,10 @@ public class BinarySearch {
         this.arr = arr;
     }
 
-    public void generateArray(int length) {
+    public void generateArray() {
         Random random = new Random();
-        this.arr = new int[length];
-        for (int i = 0; i < length; i++) {
-            this.arr[i] = random.nextInt(length);
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = random.nextInt(arr.length);
         }
     }
 
@@ -64,22 +64,21 @@ public class BinarySearch {
         array[j] = temp;
     }
 
-    public int binarySearch(int target) {
-        return binarySearch(arr, target, 0, arr.length - 1);
-    }
-
-    private int binarySearch(int[] array, int target, int left, int right) {
+    public int binarySearch(int[] array, int target, int left, int right) {
         while (left <= right) {
             int mid = left + (right - left) / 2;
 
-            if (array[mid] == target)
+            //
+            if (array[mid] == target) {
                 return mid;
-            else if (array[mid] < target)
+
+            }else if(array[mid] > target){
+                right = mid -1;
+            }else{
                 left = mid + 1;
-            else
-                right = mid - 1;
+            }
         }
-        return -1; // Không tìm thấy
+        return -1;
     }
 
     public void printArray() {
@@ -87,6 +86,23 @@ public class BinarySearch {
             System.out.print(num + " ");
         }
         System.out.println();
+    }
+
+    public void binarySearch2(int[] arr, int left, int right, int target) {
+        if (left > right) {
+            System.out.println("Target not found.");
+        }
+        int mid = left + (right - left) / 2;
+        if (arr[mid] == target) {
+            System.out.println("Find at index: " + mid);
+
+        }
+        if (arr[mid] < target) {
+            binarySearch(arr, left, mid + 1, target);
+        } else if (arr[mid] > target) {
+            binarySearch(arr, mid - 1, right, target);
+        }
+
     }
 
 }

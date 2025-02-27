@@ -52,5 +52,20 @@ public class Menu {
         String option = sc.nextLine();
         return Integer.parseInt(option);
     }
+    
+    public static int menuWeek3() {
+        System.out.println("");
+        Scanner sc = new Scanner(System.in);
+        System.out.println("------- Week 3 Program -------");
+        System.out.println("1. Bubble sort.");
+        System.out.println("2. Quick sort.");
+        System.out.println("3. Binary search.");
+        System.out.println("4. Stack.");
+        System.out.println("5. Exit program.");
+        System.out.println("------------------------------");
+        System.out.print("Input your option: ");
+        String option = sc.nextLine();
+        return Integer.parseInt(option);
+    }
 
 }
