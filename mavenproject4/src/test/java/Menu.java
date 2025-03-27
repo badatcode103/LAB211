@@ -67,5 +67,58 @@ public class Menu {
         String option = sc.nextLine();
         return Integer.parseInt(option);
     }
+    
+    public static int menuCourseWeek5(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("*** Course management ***");
+        System.out.println("1. ADD online/ offline course.");
+        System.out.println("2. Update course.");
+        System.out.println("3. Delete course.");
+        System.out.println("4. Print all/ online course/ offline course.");
+        System.out.println("5. Search information base on course name.");
+        System.out.println("6. Exit.");
+        String option = sc.nextLine();
+        return Integer.parseInt(option);
+    }
+    
+    public static int menuWorkerWeek6(){
+        System.out.println("");
+        Scanner sc = new Scanner(System.in);
+        System.out.println("======= Worker Program =======");
+        System.out.println("1. Add worker.");
+        System.out.println("2. Adjust salary.");
+        System.out.println("3. Display salary information.");
+        System.out.println("4. exit program.");
+        System.out.println("------------------------------");
+        System.out.println("Input you option: ");
+        String option = sc.nextLine();
+        return Integer.parseInt(option);
+    }
+    public static int menuWeek6(){
+        System.out.println("");
+        Scanner sc = new Scanner(System.in);
+        System.out.println("======= WEEK6 MENU =======");
+        System.out.println("1. Worker management program.");
+        System.out.println("2. Contact management program.");
+        System.out.println("3. Exit program.");
+        System.out.println("------------------------------");
+        System.out.println("Input you option: ");
+        String option = sc.nextLine();
+        return Integer.parseInt(option);
+    }
+    
+    public static int menuContactWeek6(){
+        System.out.println("");
+        Scanner sc = new Scanner(System.in);
+        System.out.println("======= Contact program =======");
+        System.out.println("1. Add contact.");
+        System.out.println("2. Display contact.");
+        System.out.println("3. Delete contact.");
+        System.out.println("4. exit program.");
+        System.out.println("------------------------------");
+        System.out.println("Input you option: ");
+        String option = sc.nextLine();
+        return Integer.parseInt(option);
+    }
 
 }

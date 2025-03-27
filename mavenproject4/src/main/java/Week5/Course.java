@@ -12,7 +12,6 @@ import java.util.Scanner;
  * @author ASUS
  */
 public class Course {
-
     protected String courseId, name;
     protected Double credits;
 
@@ -52,28 +51,38 @@ public class Course {
         this.credits = credits;
     }
 
-    Course inputCourse() {
-        Scanner sc = new Scanner(System.in);
-        try {
+    public Course inputCourse() {
+        String courseId = "";
+        String name = "";
+        Double credits = 0.0;
+
+        try (Scanner sc = new Scanner(System.in)) {
             System.out.println("Input course ID: ");
-            String courseId = sc.nextLine();
-            if (courseId == null || courseId.trim().isEmpty()) {
-                throw new InputMismatchException("Course ID can't be null.");
+            courseId = sc.nextLine().trim();
+            if (courseId.isEmpty()) {
+                throw new InputMismatchException("Course ID can't be empty.");
             }
+
             System.out.println("Input course name: ");
-            String name = sc.nextLine();
-            if (name == null || name.trim().isEmpty()) {
-                throw new InputMismatchException("Course name can't be null.");
+            name = sc.nextLine().trim();
+            if (name.isEmpty()) {
+                throw new InputMismatchException("Course name can't be empty.");
             }
+
             System.out.println("Input course credits: ");
-            Double credits = sc.nextDouble();
+            if (!sc.hasNextDouble()) {
+                throw new InputMismatchException("Course credits must be a valid number.");
+            }
+            credits = sc.nextDouble();
             sc.nextLine();
-            if (credits < 0.0) {
-                throw new InputMismatchException("Course credits must greater than 0.");
+
+            if (credits <= 0.0) {
+                throw new InputMismatchException("Course credits must be greater than 0.");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return new Course(courseId, name, credits);
     }
 }

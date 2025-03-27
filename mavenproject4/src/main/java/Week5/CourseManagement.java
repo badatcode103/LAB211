@@ -26,10 +26,8 @@ public class CourseManagement {
         System.out.println("*** Add new course ***");
         System.out.println("Online course(O) or Offline course(F)");
         String option = "";
-
         option = sc.nextLine();
         chooseCourseCheck(option);
-
         if (option.equals("O")) {
             OnlineCourse course = new OnlineCourse();
             course = course.inputCourse();
@@ -71,6 +69,12 @@ public class CourseManagement {
                     return check;
                 }
                 if (c.getName().equalsIgnoreCase(o.getName())) {
+                    check = false;
+                    return check;
+                }
+            }
+            if (c instanceof OfflineCourse) {
+                if (c.getCourseId().equalsIgnoreCase(o.getCourseId()) || c.getName().equalsIgnoreCase(o.getName())) {
                     check = false;
                     return check;
                 }
@@ -118,7 +122,8 @@ public class CourseManagement {
         System.out.println("Attention: enter empty ì you don't want to change it.");
         System.out.println("Course ID: ");
         String id = sc.nextLine();
-        if (id != null || id.trim() != null) {
+        if (id != null && !id.trim().isEmpty()) {
+
             o.setCourseId(id);
         }
         System.out.println("Course name: ");
@@ -131,11 +136,9 @@ public class CourseManagement {
         Double credits = sc.nextDouble();
         sc.nextLine();
         if (credits <= 0) {
-            throw new InputMismatchException("Credits must greater than 0.");
+            throw new InputMismatchException("Credits must be greater than 0.");
         }
-        if (credits != null) {
-            o.setCredits(credits);
-        }
+        o.setCredits(credits);
         System.out.println("Platform: ");
         String platform = sc.nextLine();
         if (platform != null || platform.trim() != null) {
@@ -154,7 +157,8 @@ public class CourseManagement {
         System.out.println("Updated successfully");
     }
 
-    void updateOfflineCOurse(OfflineCourse o) {
+    void updateOfflineCOurse(OfflineCourse o
+    ) {
         System.out.println("Course ID: " + o.getCourseId());
         System.out.println("Course name: " + o.getName());
         System.out.println("Course credits: " + o.getCredits());
@@ -165,7 +169,7 @@ public class CourseManagement {
         System.out.println("Attention: enter empty ì you don't want to change it.");
         System.out.println("Course ID: ");
         String id = sc.nextLine();
-        if (id != null || id.trim() != null) {
+        if (id != null && !id.trim().isEmpty()) {
             o.setCourseId(id);
         }
         System.out.println("Course name: ");
@@ -186,7 +190,7 @@ public class CourseManagement {
                 String beginString = sc.nextLine();
                 if (beginString != null || beginString.trim() != null) {
                     DateTimeFormatter formatter = new DateTimeFormatterBuilder()
-                            .appendPattern("dd/MM/uuuu") 
+                            .appendPattern("dd/MM/uuuu")
                             .toFormatter()
                             .withResolverStyle(ResolverStyle.STRICT);
                     LocalDate begin = LocalDate.parse(beginString, formatter);
@@ -199,7 +203,7 @@ public class CourseManagement {
                             .appendPattern("dd/MM/uuuu")
                             .toFormatter()
                             .withResolverStyle(ResolverStyle.STRICT);
-                    LocalDate end = LocalDate.parse(beginString, formatter);
+                    LocalDate end = LocalDate.parse(endString, formatter);
                     ((OfflineCourse) o).setEnd(end);
                 }
             } catch (Exception e) {
@@ -248,7 +252,8 @@ public class CourseManagement {
         }
     }
 
-    void printCourse(String option) {
+    void printCourse(String option
+    ) {
         if (option.equals("1")) {
             for (Course c : courseList) {
                 if (c instanceof OnlineCourse) {
@@ -284,15 +289,16 @@ public class CourseManagement {
             for (Course c : courseList) {
                 if (c.getName().equals(name)) {
                     System.out.println(c.toString());
+                    check = true;
                     break;
                 }
             }
             if (!check) {
                 System.out.println("Course not found. Do you want to try again! (Y/N)");
                 String option = sc.nextLine();
-                if(option.equals("Y")){
+                if (option.equals("Y")) {
                     continue;
-                }else if(option.equals("N")){
+                } else if (option.equals("N")) {
                     break;
                 }
             }

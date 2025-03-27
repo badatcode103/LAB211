@@ -127,7 +127,7 @@ public class StudentListView implements Comparator<Student> {
             target.setName(sc.nextLine());
             System.out.println("Enter new semester: ");
             target.setSemester(sc.nextInt());
-            sc.nextLine(); // Clear buffer
+            sc.nextLine(); 
             System.out.println("Enter new course: ");
             target.setCourse(sc.nextLine());
             System.out.println("Student updated successfully!");
@@ -155,7 +155,7 @@ public class StudentListView implements Comparator<Student> {
 
     @Override
     public int compare(Student o1, Student o2) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
 
 

@@ -12,46 +12,47 @@ import Week1.Validate;
  */
 public class BigData {
 
-    public void Addition(String num1, String num2) {
-        if (Validate.validateStringNumber(num1) == true && Validate.validateStringNumber(num2) == true) {
-            String result = "", num3, num4;
-            int temp = 0;
-            int remember = 0;
-            if (num1.length() == num2.length()) {
-                int l = num1.length();
-                while (l >= 1) {
-                    if (l == 1) {
-                        temp = (num1.charAt(l - 1) - '0') + (num2.charAt(l - 1) - '0') + remember;
-                    } else {
-                        temp = (num1.charAt(l - 1) - '0') + (num2.charAt(l - 1) - '0') + remember;
-                        if (temp >= 10) {
-                            temp = temp % 10;
-                            remember = 1;
-                        }
-                    }
-                    result = Integer.toString(temp) + result;
-                    
-                }
-            } else {
-                num3 = (num1.length() > num2.length())? num1 : num2;
-                if(num3 == num1){
-                    num4 = num3.substring(num3.length()-num2.length());
-                    int l = num3.length();
-                    while(l>=1){
-                        temp = (num3.charAt(l-1) - '0') + (num2.charAt(l-1)-'0')+ remember;
-                        if(temp >= 10){
-                            temp = temp%10;
-                            remember = 1;
-                        }
-                        result = Integer.toString(temp) + result;
-                        
-                    }
-                    num4 = num1.substring(0,num1.length()-num2.length()-1);
-                    int temp1 = Integer.parseInt(num4);
-                    temp = temp1 + remember;
-                    result = Integer.toString(temp) + result;
-                }
-            }
-        }
+    private String num1;
+
+    public BigData(String number) {
+        this.num1 = number;
     }
+
+    public String Addition(String num2) {
+        StringBuilder result = new StringBuilder();
+        int i = num1.length() - 1;
+        int j = num2.length() - 1;
+        int remember = 0;
+        int temp;
+        while (i >= 0 || j >= 0 || remember > 0) {
+            int digit1 = (i >= 0) ? (num1.charAt(i) - '0') : 0;
+            int digit2 = (j >= 0) ? (num2.charAt(j) - '0') : 0;
+            temp = digit1 + digit2 + remember;
+            result = result.append(temp % 10);
+            remember = temp / 10;
+            i--;
+            j--;
+        } 
+        return result.reverse().toString();
+    }
+
+//    public String Multiplication(String num2) {
+//        StringBuilder result = new StringBuilder();
+//        
+//    }
+//    
+    public String smallMulti(String number, char c){
+        int base = 1;
+        int i = number.length()-1;
+        StringBuilder result = new StringBuilder();
+        int remember = 0, temp = 0;
+        while(i>=0 || remember > 0){
+           temp = (c-'0')*(number.charAt(i)-'0') + remember;
+           result = result.append(temp%10);
+           remember = temp/10;
+           i--;
+        }
+        return result.reverse().toString();
+    }
+
 }

@@ -11,8 +11,8 @@ import java.util.Scanner;
  *
  * @author ASUS
  */
-public class OnlineCourse extends Course {
 
+public class OnlineCourse extends Course {
     private String platform, instructor, note;
 
     public OnlineCourse(String platform, String instructor, String note, String courseId, String name, Double credits) {
@@ -51,71 +51,55 @@ public class OnlineCourse extends Course {
         this.note = note;
     }
 
-    public String getCourseId() {
-        return courseId;
-    }
+    public OnlineCourse inputCourse() {
+        String courseId = "", name = "", platform = "", instructor = "", note = "";
+        Double credits = 0.0;
 
-    public void setCourseId(String courseId) {
-        this.courseId = courseId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Double getCredits() {
-        return credits;
-    }
-
-    public void setCredits(Double credits) {
-        this.credits = credits;
-    }
-    
-    
-
-    OnlineCourse inputCourse() {
-        Scanner sc = new Scanner(System.in);
-        try {
+        try (Scanner sc = new Scanner(System.in)) {
             System.out.println("Input course ID: ");
-            String courseId = sc.nextLine();
-            if (courseId == null || courseId.trim().isEmpty()) {
-                throw new InputMismatchException("Course ID can't be null.");
+            courseId = sc.nextLine().trim();
+            if (courseId.isEmpty()) {
+                throw new InputMismatchException("Course ID can't be empty.");
             }
+
             System.out.println("Input course name: ");
-            String name = sc.nextLine();
-            if (name == null || name.trim().isEmpty()) {
-                throw new InputMismatchException("Course name can't be null.");
+            name = sc.nextLine().trim();
+            if (name.isEmpty()) {
+                throw new InputMismatchException("Course name can't be empty.");
             }
+
             System.out.println("Input course credits: ");
-            Double credits = sc.nextDouble();
-            sc.nextLine();
-            if (credits < 0.0) {
-                throw new InputMismatchException("Course credits must greater than 0.");
+            if (!sc.hasNextDouble()) {
+                throw new InputMismatchException("Course credits must be a valid number.");
             }
+            credits = sc.nextDouble();
+            sc.nextLine(); 
+            if (credits <= 0.0) {
+                throw new InputMismatchException("Course credits must be greater than 0.");
+            }
+
             System.out.println("Input course platform: ");
-            String platform = sc.nextLine();
-            if (platform == null || platform.trim().isEmpty()) {
-                throw new InputMismatchException("Platform can't be null.");
+            platform = sc.nextLine().trim();
+            if (platform.isEmpty()) {
+                throw new InputMismatchException("Platform can't be empty.");
             }
+
             System.out.println("Input course instructor: ");
-            String instructor = sc.nextLine();
-            if (instructor == null || instructor.trim().isEmpty()) {
-                throw new InputMismatchException("Instructor can't be null.");
+            instructor = sc.nextLine().trim();
+            if (instructor.isEmpty()) {
+                throw new InputMismatchException("Instructor can't be empty.");
             }
+
             System.out.println("Input course note: ");
-            String note = sc.nextLine();
-            if (note == null || note.trim().isEmpty()) {
-                throw new InputMismatchException("Note can't be null.");
+            note = sc.nextLine().trim();
+            if (note.isEmpty()) {
+                throw new InputMismatchException("Note can't be empty.");
             }
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
+
         return new OnlineCourse(platform, instructor, note, courseId, name, credits);
     }
-
 }

@@ -8,13 +8,13 @@ import java.time.LocalDate;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  *
  * @author ASUS
  */
 public class OfflineCourse extends Course {
-
     private LocalDate begin, end;
     private String campus, teacherName;
 
@@ -58,30 +58,6 @@ public class OfflineCourse extends Course {
         this.campus = campus;
     }
 
-    public String getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(String courseId) {
-        this.courseId = courseId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Double getCredits() {
-        return credits;
-    }
-
-    public void setCredits(Double credits) {
-        this.credits = credits;
-    }
-
     public String getTeacherName() {
         return teacherName;
     }
@@ -89,58 +65,76 @@ public class OfflineCourse extends Course {
     public void setTeacherName(String teacherName) {
         this.teacherName = teacherName;
     }
-    
-    
 
-    OfflineCourse inputCourse() {
-        Scanner sc = new Scanner(System.in);
-        try {
+    public OfflineCourse inputCourse() {
+        String courseId = "", name = "", campus = "", teacherName = "";
+        Double credits = 0.0;
+        LocalDate begin = null, end = null;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        try (Scanner sc = new Scanner(System.in)) {
             System.out.println("Input course ID: ");
-            String courseId = sc.nextLine();
-            if (courseId == null || courseId.trim().isEmpty()) {
-                throw new InputMismatchException("Course ID can't be null.");
+            courseId = sc.nextLine().trim();
+            if (courseId.isEmpty()) {
+                throw new InputMismatchException("Course ID can't be empty.");
             }
+
             System.out.println("Input course name: ");
-            String name = sc.nextLine();
-            if (name == null || name.trim().isEmpty()) {
-                throw new InputMismatchException("Course name can't be null.");
+            name = sc.nextLine().trim();
+            if (name.isEmpty()) {
+                throw new InputMismatchException("Course name can't be empty.");
             }
+
             System.out.println("Input course credits: ");
-            Double credits = sc.nextDouble();
-            sc.nextLine();
-            if (credits < 0.0) {
-                throw new InputMismatchException("Course credits must greater than 0.");
+            if (!sc.hasNextDouble()) {
+                throw new InputMismatchException("Course credits must be a valid number.");
             }
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            System.out.println("Input begin date(dd/MM/yyyy): ");
-            String beginString = sc.nextLine();
-            LocalDate begin = LocalDate.parse(beginString, formatter);
-            System.out.println("Input end date(dd/MM/yyyy): ");
-            String endString = sc.nextLine();
-            LocalDate end = LocalDate.parse(beginString, formatter);
+            credits = sc.nextDouble();
+            sc.nextLine(); 
+            if (credits <= 0.0) {
+                throw new InputMismatchException("Course credits must be greater than 0.");
+            }
+
+            System.out.println("Input begin date (dd/MM/yyyy): ");
+            String beginString = sc.nextLine().trim();
+            begin = parseDate(beginString, formatter);
+
+            System.out.println("Input end date (dd/MM/yyyy): ");
+            String endString = sc.nextLine().trim();
+            end = parseDate(endString, formatter);
+
+            if (!checkTime(begin, end)) {
+                throw new InputMismatchException("End date must be after begin date.");
+            }
+
             System.out.println("Input campus: ");
-            String campus = sc.nextLine();
-            if (campus == null || campus.trim().isEmpty()) {
-                throw new InputMismatchException("Campus can't be null.");
+            campus = sc.nextLine().trim();
+            if (campus.isEmpty()) {
+                throw new InputMismatchException("Campus can't be empty.");
             }
+
             System.out.println("Input teacher name: ");
-            String teacherName = sc.nextLine();
-            if (teacherName == null || teacherName.trim().isEmpty()) {
-                throw new InputMismatchException("Teacher name can't be null.");
-            }
-            if(checkTime(end, begin)!=true){
-                System.out.println("End day must after begin day.");
-                return null;
+            teacherName = sc.nextLine().trim();
+            if (teacherName.isEmpty()) {
+                throw new InputMismatchException("Teacher name can't be empty.");
             }
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
-        return new OfflineCourse( begin,  end,  campus,  teacherName, courseId, name, credits);
-    }
-    
-    boolean checkTime(LocalDate time1, LocalDate time2){
-        return time1.isAfter(time2);
+
+        return new OfflineCourse(begin, end, campus, teacherName, courseId, name, credits);
     }
 
+    private LocalDate parseDate(String dateString, DateTimeFormatter formatter) {
+        try {
+            return LocalDate.parse(dateString, formatter);
+        } catch (DateTimeParseException e) {
+            throw new InputMismatchException("Invalid date format. Please use dd/MM/yyyy.");
+        }
+    }
+
+    boolean checkTime(LocalDate begin, LocalDate end) {
+        return end.isAfter(begin);
+    }
 }
